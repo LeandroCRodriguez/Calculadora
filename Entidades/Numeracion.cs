@@ -163,7 +163,16 @@ namespace Entidades
         {
             if(EsBinario(valorBinario))
             {
-                return BitConverter.Int64BitsToDouble(Convert.ToInt64(valorBinario, 2));
+                double resultado = 0;
+                int longitud = valorBinario.Length;
+
+                for (int i = 0; i < longitud; i++)
+                {
+                    int digito = int.Parse(valorBinario[i].ToString());
+                    resultado = resultado * 2 + digito;
+                }
+
+                return resultado;
             }
             else
             {

@@ -171,6 +171,7 @@
             // 
             // cmbOperacion
             // 
+            cmbOperacion.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbOperacion.FormattingEnabled = true;
             cmbOperacion.Location = new Point(261, 321);
             cmbOperacion.Name = "cmbOperacion";

@@ -9,7 +9,7 @@ namespace Calculadora
         private Numeracion primerOperando;
         private Numeracion segundoOperando;
         private Numeracion resultado;
-        private Numeracion.ESistema sistema;//Hay que ver si esta bien
+        private Numeracion.ESistema sistema;
 
         public FrmCalculadora()
         {
@@ -39,11 +39,12 @@ namespace Calculadora
 
         private void BtnOperar(object sender, EventArgs e)
         {
-            Numeracion n1 = new Numeracion(txtPrimerOperador.Text, this.sistema);
-            Numeracion n2 = new Numeracion(txtSegundoOperador.Text, this.sistema);
-            Operacion operacion = new Operacion(n1, n2);
-            char operador = Convert.ToChar(cmbOperacion.SelectedItem.ToString());            
-            this.resultado = operacion.Operar(operador);
+            primerOperando = new Numeracion(txtPrimerOperador.Text, this.sistema);
+            segundoOperando = new Numeracion(txtSegundoOperador.Text, this.sistema);
+            calculadora = new Operacion(primerOperando, segundoOperando);
+
+            char operador = Convert.ToChar(cmbOperacion.SelectedItem.ToString()); //Estoy parseando a char            
+            this.resultado = calculadora.Operar(operador);
             setResultado(resultado);
 
             //Lineas para probar
@@ -70,6 +71,8 @@ namespace Calculadora
             }
 
         }
+
+
 
 
 
