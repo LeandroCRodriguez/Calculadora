@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -16,12 +17,11 @@ namespace Entidades
 
         public Numeracion(double valorNumerico, ESistema esistema) 
         {
-            //InicializarValores(valorNumerico.ToString(), esistema);
             this.valorNumerico = valorNumerico;
             this.esistema = esistema;
         }
 
-        public Numeracion(string valorNumerico, ESistema esistema) //¿¿Por que este metodo?? me lo piden y no se que onda
+        public Numeracion(string valorNumerico, ESistema esistema) 
         {
             InicializarValores(valorNumerico, esistema);
         }
@@ -46,8 +46,7 @@ namespace Entidades
                 {
                     double valorConvertido = BinarioADecimal(valorNumerico);
                     this.valorNumerico = valorConvertido;
-                }
-                
+                }                
             }
             else if(sistema == ESistema.Decimal)
             {
@@ -61,7 +60,7 @@ namespace Entidades
                 }
             }
         }
-                
+                //Hasta acá creo que viene bien
 
         public string ConvertirA(ESistema sistema)
         {
@@ -70,10 +69,12 @@ namespace Entidades
                 case ESistema.Binario:
                         string valorConvertidoBinario = DecimalABinario(this.valorNumerico);
                         return valorConvertidoBinario;     
-                case ESistema.Decimal:                    
-                        string valorNumericoString = this.valorNumerico.ToString();
-                        double valorConvertidoDecimal = BinarioADecimal(valorNumericoString);
-                        return valorConvertidoDecimal.ToString();                 
+                case ESistema.Decimal:
+                    string valorNumericoString;
+                    return valorNumericoString = this.valorNumerico.ToString(); //No sé si es así o si es como el codigo comentado.
+                        //string valorNumericoString = this.valorNumerico.ToString();
+                        //double valorConvertidoDecimal = BinarioADecimal(valorNumericoString);
+                        //return valorConvertidoDecimal.ToString();                 
                 default:                    
                     return "Sistema no válido";
             }
@@ -92,7 +93,7 @@ namespace Entidades
         }
 
         //Chat
-        private string DecimalABinario(double valorDecimal)
+        private string DecimalABinario(double valorDecimal)  //Me pide que llegue un strin y no un double
         {
             // Verificar si el valorDecimal es negativo
             if (valorDecimal < 0)
@@ -127,7 +128,7 @@ namespace Entidades
         }
 
 
-        private string DecimalABinario(int valorDecimal)
+        private string DecimalABinario(int valorDecimal) //Me queda un metodo al pedo
         {
             if (valorDecimal < 0)
             {
@@ -158,7 +159,7 @@ namespace Entidades
         }
 
 
-        private double BinarioADecimal(string valorBinario)
+        private double BinarioADecimal(string valorBinario) //Tengo que modificarlo
         {
             if(EsBinario(valorBinario))
             {
@@ -169,7 +170,56 @@ namespace Entidades
                 return 0;
             }
         }
-            
+
+        public static bool operator ==(Numeracion n1, Numeracion n2)
+        {
+            if (n1.esistema == n2.esistema)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public static bool operator !=(Numeracion n1, Numeracion n2)
+        {
+            if (n1.esistema != n2.esistema)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public static bool operator ==(ESistema sistema, Numeracion numeracion)
+        {
+            if (sistema == numeracion.esistema)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public static bool operator !=(ESistema sistema, Numeracion numeracion)
+        {
+            if (sistema != numeracion.esistema)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+
         public static Numeracion operator +(Numeracion num1, Numeracion num2)
         {
             double resultado = num1.GetValor() + num2.GetValor();
