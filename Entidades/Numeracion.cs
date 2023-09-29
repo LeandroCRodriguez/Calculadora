@@ -232,7 +232,7 @@ namespace Entidades
         public static Numeracion operator +(Numeracion num1, Numeracion num2)
         {
             double resultado = num1.GetValor() + num2.GetValor();
-            return new Numeracion(resultado, ESistema.Decimal); //Podría hacer un constructor que reciba solo el resultado como parametro. es mejor?
+            return new Numeracion(resultado, num1.esistema); //Podría hacer un constructor que reciba solo el resultado como parametro. es mejor?
         }
         public static Numeracion operator -(Numeracion num1, Numeracion num2)
         {

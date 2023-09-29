@@ -39,57 +39,50 @@ namespace Calculadora
 
         private void BtnOperar(object sender, EventArgs e)
         {
-            primerOperando = new Numeracion(txtPrimerOperador.Text, this.sistema);
-            segundoOperando = new Numeracion(txtSegundoOperador.Text, this.sistema);
+            primerOperando = new Numeracion(txtPrimerOperador.Text, Numeracion.ESistema.Decimal);
+            segundoOperando = new Numeracion(txtSegundoOperador.Text, Numeracion.ESistema.Decimal);
             calculadora = new Operacion(primerOperando, segundoOperando);
 
-            char operador = Convert.ToChar(cmbOperacion.SelectedItem.ToString()); //Estoy parseando a char            
+            char operador = Convert.ToChar(cmbOperacion.SelectedItem); //Estoy parseando a char            
             this.resultado = calculadora.Operar(operador);
-            setResultado(resultado);
+            setResultado();
 
-            //Lineas para probar
-            //MessageBox.Show("Número obtenido: " + n1.GetValor(), "Número Obtenido");
-            //MessageBox.Show("sistema obtenido: " + n1.GetESistema(), "sistema Obtenido");
-            //MessageBox.Show("Número obtenido: " + n2.GetValor(), "Número Obtenido");
-            //MessageBox.Show("sistema obtenido: " + n2.GetESistema(), "sistema Obtenido");
-            //MessageBox.Show("resultado obtenido: " + resultado.GetValor(), "resultado Obtenido");
         }
-        private void setResultado(Numeracion resultado)
+        private void setResultado()
         {
-            if (rdbBinario.Checked)
+            if (resultado is not null)
             {
-                this.sistema = Entidades.Numeracion.ESistema.Binario;
-                double resultadoDouble = resultado.GetValor();
-                Numeracion binario = new Numeracion(resultadoDouble, this.sistema);
-                string resultadoConvertido = binario.ConvertirA(this.sistema);
+                //this.sistema = Entidades.Numeracion.ESistema.Binario;                
+                string resultadoConvertido = resultado.ConvertirA(this.sistema);
                 lblResultado.Text = resultadoConvertido;
             }
-            else if (rdbDecimal.Checked)
-            {
-                this.sistema = Entidades.Numeracion.ESistema.Decimal;
-                lblResultado.Text = resultado.GetValor().ToString();
-            }
 
         }
-
-
-
 
 
         private void rdbBinario_checkedChanged(object sender, EventArgs e)
         {
-
+            if (rdbBinario.Checked)
+            {
+                this.sistema = Entidades.Numeracion.ESistema.Binario;
+                this.setResultado();
+            }
         }
 
         private void rdbDecimal_checkedChanged(object sender, EventArgs e)
         {
+            if (rdbDecimal.Checked)
+            {
+                this.sistema = Entidades.Numeracion.ESistema.Decimal;
+                this.setResultado();
+            }
 
         }
 
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            List<char> chars = new List<char> { ' ', '+', '-', '*', '/' };
+            List<char> chars = new List<char> { '+', '-', '*', '/' };
 
             foreach (char c in chars)
             {
@@ -98,10 +91,7 @@ namespace Calculadora
             rdbDecimal.Checked = true;
         }
 
-        private void radioButton2_CheckedChanged(object sender, EventArgs e)
-        {
 
-        }
 
         private void lblResultado_Click(object sender, EventArgs e)
         {

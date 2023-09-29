@@ -76,7 +76,7 @@
             rdbBinario.TabStop = true;
             rdbBinario.Text = "Binario";
             rdbBinario.UseVisualStyleBackColor = true;
-            rdbBinario.CheckedChanged += radioButton2_CheckedChanged;
+            rdbBinario.CheckedChanged += rdbBinario_checkedChanged;
             // 
             // rdbDecimal
             // 
@@ -88,6 +88,7 @@
             rdbDecimal.TabStop = true;
             rdbDecimal.Text = "Decimal";
             rdbDecimal.UseVisualStyleBackColor = true;
+            rdbDecimal.CheckedChanged += rdbDecimal_checkedChanged;
             // 
             // label2
             // 
